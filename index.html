@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <title>PDF2SCRIPT - PDF to Text</title>
+
+  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="js/pdf_converter.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"
+    integrity="sha512-ml/QKfG3+Yes6TwOzQb7aCNtJF4PUyha6R3w8pSTo/VJSywl7ZreYvvtUso7fKevpsI+pYVVwnu82YO0q3V6eg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Set the worker source for PDF.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js"></script>
+
+</head>
+
+<body>
+  <!-- INICIO NAVBAR-->
+  <nav class="navbar navbar-expand-lg bg-body-secondary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">PDF2SCRIPT</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- FIN NAVBAR-->
+
+  <!-- INICIO JUMBOTRON-->
+  <div class="container-fluid">
+    <div class="mt-3 p-3 text-center bg-body-primary rounded-3">
+      <img class="bi mt-4 mb-3" src="assets/imgs/logo2pdf.png" width="100" height="100" alt="Logo 2 PDF">
+      <h1 class="text-body-emphasis">Convert PDF to Text</h1>
+      <p class="col-lg-8 mx-auto fs-5 text-muted">
+        PDF2Script lets you easily turn your PDF documents into plain text. It's quick and straightforward. No more
+        complications. Just fast and simple PDF to text conversion with <code>PDF2Script</code>.
+      </p>
+    </div>
+  </div>
+  <!-- FIN JUMBOTRON-->
+
+
+  <!-- INICIO FILE UPLOAD-->
+  <div class="file-upload">
+    <div class="image-upload-wrap">
+      <input class="file-upload-input selectpdf" id="file-upload-input" type='file' onchange="readURL(this);"
+      accept=".pdf" onclick="$('.file-upload-input').trigger('click')" />
+      <div class="drag-text">
+        <h3>Drag and drop a PDF file</h3>
+      </div>
+    </div>
+    <div class="file-upload-content">
+      <img class="file-upload-image" src="#" alt="your Pdf" />
+      <div class="image-title-wrap">
+        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded
+            PDF</span></button>
+      </div>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto my-5">
+      <button class="btn btn-success file-upload-btn upload" type="button">Convert to Text</button>
+    </div>
+  </div>
+  <!-- FIN FILE UPLOAD-->
+
+
+  <!-- Download link for the extracted text file -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="textresult col-md-8 col-xl-6 d-flex flex-column align-items-center text-center mb-3">
+        <button class="btn btn-primary download" download="extracted_text.txt" onclick="downloadText()">
+          <i class="fas fa-download"></i> Download Text
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resultado del texto extraído -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="textresult col-md-8 col-xl-6 d-flex flex-column align-items-center text-center mb-3">
+        <label for="exampleFormControlTextarea1" class="labeltext mb-3">Output Text</label>
+        <textarea class="form-control pdftext bg-body-secondary" id="exampleFormControlTextarea1" rows="20" readonly
+          style="resize: none;"></textarea>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- INICIO FOOTER-->
+  <div class="container">
+    <footer class="py-2 my-1">
+      <p class="text-center text-body-secondary">© 2023 PDF2SCRIPT, Inc</p>
+    </footer>
+  </div>
+  <!-- FIN FOOTER-->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
